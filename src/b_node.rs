@@ -12,14 +12,14 @@ trait Tree {
 
 enum BNodeType {
     InternalNode,
-    Leaf,
+    LeafNode,
 }
 
 impl BNodeType {
     fn from_u16(n: u16) -> BNodeType {
         match n {
             1 => BNodeType::InternalNode,
-            2 => BNodeType::Leaf,
+            2 => BNodeType::LeafNode,
             _ => unreachable!("Invalid value for BNodeType: {}", n),
         }
     }
@@ -29,7 +29,7 @@ struct BNode {
     /*raw data
     format:
     | type | n_keys |   pointers   |   offsets   | k-v pairs |
-    |  2B  |   2B   |  n_keys * 8B | n_keys * 8B |  ....     |
+    |  2B  |   2B   |  n_keys * 8B | n_keys * 2B |  ....     |
 
     k-v pair format:
     | k_len | v_len | key | val |
